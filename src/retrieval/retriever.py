@@ -12,7 +12,9 @@ import json
 import pandas as pd
 from typing import List, Dict, Any, Optional, Tuple
 from ..utils.logging_utils import get_logger, LoggerMixin
+from ..models.embedding_models import EmbeddingModel
 import numpy as np
+import re
 from sentence_transformers import SentenceTransformer
 try:
     import torch
@@ -42,6 +44,8 @@ class Retriever(LoggerMixin):
         self.database_path = self.config.get('database_path', 'data/processed/database/database.json')
         self.database = None
         self.load_database()
+        self.model = EmbeddingModel()
+        self.model.load_model()
     
     def load_database(self) -> None:
         """Load the article database."""
@@ -197,7 +201,8 @@ class Retriever(LoggerMixin):
         self,
         article: Dict[str, Any],
         query_context: Optional[str] = None,
-        max_sentences: int = 3
+        max_sentences: int = 3,
+        ctx_range: int = 2
     ) -> str:
         """
         Extract the most relevant sentences from an article.
@@ -217,9 +222,30 @@ class Retriever(LoggerMixin):
         if not content:
             return ""
         
-        # Simple implementation: return first few sentences
-        sentences = content.split('. ')[:max_sentences]
-        return '. '.join(sentences) + '.'
+        
+        
+        pattern = r'.*?(?:\.{3}|[.!?])'
+
+        docs = re.findall(pattern, content)
+        _max = 0
+        for doc in docs:
+            if len(doc) > _max:
+                _max = len(doc)
+        embeddings_1 = self.model.embed(query_context, len(query_context))
+        embeddings_2 = self.model.embed(docs, _max)
+        similarity = embeddings_1 @ embeddings_2.T
+        
+        topk_indices = np.argsort(similarity.flatten())[-max_sentences:][::-1].tolist()
+        
+        result_set = set()
+        for i in topk_indices:
+            for j in range(i - ctx_range, i + ctx_range + 1):
+                if 0 <= j < len(docs):
+                    result_set.add(j)
+
+        topk_docs = [docs[i] for i in result_set]
+
+        return '. '.join(topk_docs) + '.'
     
     def get_database_stats(self) -> Dict[str, Any]:
         """

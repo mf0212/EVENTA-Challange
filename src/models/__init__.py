@@ -9,5 +9,6 @@ This module provides:
 """
 
 from .qwen_models import QwenVLModel, QwenTextModel
+from .embedding_models import EmbeddingModel
 
-__all__ = ["QwenVLModel", "QwenTextModel"]
+__all__ = ["QwenVLModel", "QwenTextModel", "EmbeddingModel"]
