@@ -9,5 +9,6 @@ This module provides utilities for:
 """
 
 from .retriever import Retriever
+from .hierarchical_retriever import HierarchicalMultimodalRetriever
 
-__all__ = ["Retriever"]
+__all__ = ["Retriever", "HierarchicalMultimodalRetriever"]

@@ -40,3 +40,5 @@ flake8>=5.0.0
 # Jupyter notebooks (optional)
 jupyter>=1.0.0
 ipykernel>=6.0.0
+sentence-transformers>=2.2.2
+FlagEmbedding>=1.2.7

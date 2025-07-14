@@ -5,7 +5,6 @@ Retrieval module for Event-Enriched Image Captioning
 This module provides utilities for retrieving relevant contextual information
 from article databases to enrich image captions.
 
-NOTE: This is a placeholder implementation. Replace with your actual retrieval pipeline.
 """
 
 import os
@@ -13,6 +12,13 @@ import json
 import pandas as pd
 from typing import List, Dict, Any, Optional, Tuple
 from ..utils.logging_utils import get_logger, LoggerMixin
+import numpy as np
+from sentence_transformers import SentenceTransformer
+try:
+    import torch
+    import clip
+except ImportError:
+    clip = None  # Mock if not available
 
 logger = get_logger(__name__)
 
