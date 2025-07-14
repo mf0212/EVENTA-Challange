@@ -1,0 +1,42 @@
+# Core ML and AI libraries
+torch>=2.0.0
+transformers>=4.35.0
+qwen-vl-utils>=0.0.1
+
+# Image processing
+Pillow>=9.0.0
+opencv-python>=4.5.0
+
+# Data handling
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Progress tracking
+tqdm>=4.64.0
+
+# Configuration management
+PyYAML>=6.0
+
+# Logging and utilities
+colorlog>=6.7.0
+
+# Data download
+gdown>=4.7.1
+
+# Evaluation metrics
+nltk>=3.8
+pycocoevalcap>=1.2
+
+# Optional: GPU acceleration
+# torch-audio  # Uncomment if needed
+# torchvision  # Uncomment if needed
+
+# Development and testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+
+# Jupyter notebooks (optional)
+jupyter>=1.0.0
+ipykernel>=6.0.0

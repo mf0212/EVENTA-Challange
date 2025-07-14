@@ -1,0 +1,120 @@
+# Data Configuration for Event-Enriched Image Captioning
+
+# Base data directory
+base_dir: "data"
+
+# Data paths
+paths:
+  # Raw data (downloaded files)
+  raw:
+    base: "data/raw"
+    train: "data/raw/train"
+    database: "data/raw/database"
+    query: "data/raw/query"
+    private: "data/raw/private"
+  
+  # Processed data (extracted and ready to use)
+  processed:
+    base: "data/processed"
+    train: "data/processed/train"
+    database: "data/processed/database"
+    query: "data/processed/query"
+    private: "data/processed/private"
+  
+  # Output paths
+  outputs:
+    base: "outputs"
+    submissions: "outputs/submissions"
+    logs: "logs"
+    checkpoints: "outputs/checkpoints"
+
+# File mappings
+files:
+  # Training data
+  train:
+    ground_truth: "gt_train.csv"
+    images_archive: "train_compressed_scaled_images.zip"
+    images_dir: "train_images"
+  
+  # Database
+  database:
+    articles: "database.json"
+    images_archive: "database_compressed_scaled_images.zip"
+    images_dir: "database_images"
+  
+  # Query data (public)
+  query:
+    queries: "query.csv"
+    images_archive: "images.zip"
+    images_dir: "pub_images"
+  
+  # Private query data
+  private:
+    queries: "query.csv"
+    images_archive: "images.zip"
+    images_dir: "query"
+
+# Google Drive file IDs for download
+gdrive_files:
+  train:
+    gt_train: "1lypEb4iLe0mplDl_To7gxCiSL1vTaLnz"
+    images: "1aYIHFp1vPrgrv1p_mhNXMusV0lA64nTM"
+  
+  database:
+    articles: "1GvlG42enj1iwwS3eTIFlLgk04oASCwQE"
+    images: "1WBlOARXa699KsOsK0LfiJxUXK-JU8XSf"
+  
+  query:
+    queries: "1SjFE2qqwIFKAfhERf8zTgUoB0YrDxB0s"
+    images: "1MVLtLhbtIosZL1tWF2S8VaWZKVD1Uson"
+  
+  private:
+    queries: "1uc-o4_93c7RKaffxGhPXHC572sBT228j"
+    images: "1mi2JWvX0shcsIyTi2olELOExG-vCDVus"
+
+# Processing settings
+processing:
+  # Image processing
+  image:
+    max_size: [1280, 1280]
+    quality: 95
+    format: "JPEG"
+  
+  # Text processing
+  text:
+    max_length: 512
+    encoding: "utf-8"
+  
+  # Batch processing
+  batch:
+    size: 10
+    checkpoint_interval: 5
+    max_workers: 4
+
+# Submission settings
+submission:
+  template_columns:
+    - "query_id"
+    - "generated_caption"
+  
+  output_columns:
+    - "query_id"
+    - "generated_caption"
+    - "description"
+    - "retrieved_text"
+  
+  filename_format: "submission_{timestamp}.csv"
+  
+# Validation settings
+validation:
+  required_files:
+    - "query.csv"
+    - "database.json"
+  
+  image_extensions:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".bmp"
+  
+  max_file_size_mb: 100

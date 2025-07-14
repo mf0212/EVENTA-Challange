@@ -1,0 +1,80 @@
+# Model Configuration for Event-Enriched Image Captioning
+
+# Qwen-VL Model Configuration
+qwen_vl:
+  model_id: "Qwen/Qwen2.5-VL-7B-Instruct"
+  torch_dtype: "bfloat16"
+  device_map: "auto"
+  min_pixels: 200704  # 256 * 28 * 28
+  max_pixels: 1003520  # 1280 * 28 * 28
+
+# Qwen Text Model Configuration
+qwen_text:
+  model_id: "Qwen/Qwen2.5-7B-Instruct"
+  torch_dtype: "bfloat16"
+  device_map: "auto"
+
+# Generation Parameters
+generation:
+  max_new_tokens: 2048
+  temperature: 0.7
+  do_sample: true
+  top_p: 0.9
+  top_k: 50
+  repetition_penalty: 1.1
+
+# Processing Configuration
+processing:
+  batch_size: 1
+  save_every: 5  # Save checkpoint every N items
+  max_retries: 3
+  timeout_seconds: 300
+
+# Captioning Prompts
+prompts:
+  visual_analysis: |
+    You are a visual analyst. The following image is taken from a CNN news article. Please provide a detailed and comprehensive description.
+
+    Your description should cover:
+    1. **Objective Description:** What do you see in the image? Describe the people, objects, setting, and any text visible.
+    2. **Contextual Inference:** Based on the visual cues and the fact that this is from CNN, what could the news story be about? What is the likely location or event?
+    3. **Overall Mood and Atmosphere:** What is the emotional tone of the image (e.g., tense, somber, celebratory, urgent)?
+    4. **Potential Headline:** Suggest a possible news headline for this image.
+
+    **Important:** Provide your complete analysis as a single, comprehensive paragraph that incorporates all four elements above. Do not use bullet points or separate sections - integrate everything into one cohesive paragraph.
+
+  caption_generation: |
+    # GOAL
+    Your primary objective is to generate a single, compelling paragraph that serves as a caption for an image. This caption must skillfully synthesize the provided `[IMAGE DESCRIPTION]` with the context from the `[RETRIEVED CONTEXT]`. The final caption should be of a quality that would achieve a high CIDEr score when compared against human-generated captions.
+
+    # INPUTS
+    1. `[IMAGE DESCRIPTION]`: A description of the visual elements in the photograph.
+    2. `[RETRIEVED CONTEXT]`: Pre-extracted relevant text content related to the image from news articles.
+
+    # INSTRUCTIONS
+    Follow this methodology precisely:
+
+    1. **Analyze and Synthesize, Do Not Summarize:** Your task is not to summarize the image or the context independently. You must **weave them together**. The image is your anchor; the retrieved context is your source of truth and contextual information.
+
+    2. **Start with the Visual Anchor:** Begin the caption by describing the core scene or action from the `[IMAGE DESCRIPTION]`. Mention the key subjects, the setting, and the overall mood conveyed by the visual.
+
+    3. **Enrich with Context from Retrieved Text:** Use the `[RETRIEVED CONTEXT]` to immediately identify the **who, what, where, when, and why** of the image.
+
+    4. **Connect the Visuals to the Narrative:** This is the most crucial step. Explicitly link what is seen in the image to the story from the retrieved context.
+
+    5. **Explain the Significance and Symbolism:** Conclude by explaining the broader importance of the moment captured based on the retrieved context.
+
+    # CONSTRAINTS
+    - The output must be a **single, well-structured paragraph**. Output ONLY the caption paragraph.
+    - Do NOT add any prefixes or suffixes
+    - Just write the caption directly
+    - Do **NOT** invent any information that is not present in the inputs.
+    - Maintain a professional, engaging, and journalistic tone.
+    - Focus on a smooth narrative flow, not a bulleted list of facts.
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/captioning.log"
+  console: true
