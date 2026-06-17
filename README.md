@@ -5,6 +5,31 @@
 
 A hierarchical multi-modal retrieval-augmented framework for the Event-Enriched Image Captioning Challenge (Track 1). Our system combines sophisticated article retrieval with structured caption generation to produce comprehensive, contextually-aware image descriptions that go beyond simple visual observations.
 
+## Paper Release
+
+**Paper:** Hierarchical Multi-Modal Retrieval for Knowledge-Grounded News Image Captioning
+
+**Venue:** International Symposium on Information and Communication Technology (SoICT), 2025
+
+
+
+![Overview Figure](sampleteaser.png)
+
+### Authors
+
+- Minh-Loi Nguyen<sup>1,2,*</sup> [ORCID: 0009-0003-2630-3325](https://orcid.org/0009-0003-2630-3325)
+- Xuan-Vu Le<sup>1,2,*</sup> [ORCID: 0009-0009-6094-4912](https://orcid.org/0009-0009-6094-4912)
+- Long-Bao Nguyen<sup>1,2</sup> [ORCID: 0009-0003-6311-745X](https://orcid.org/0009-0003-6311-745X)
+- Hoang-Bach Ngo<sup>1,2</sup> [ORCID: 0009-0002-2290-1187](https://orcid.org/0009-0002-2290-1187)
+- Trung-Nghia Le<sup>1,2,+</sup> [ORCID: 0000-0002-7363-2610](https://orcid.org/0000-0002-7363-2610)
+
+<sup>1</sup> University of Science, VNU-HCM, Ho Chi Minh City, Vietnam  
+<sup>2</sup> Vietnam National University, Ho Chi Minh City, Vietnam  
+<sup>*</sup> Equal contribution  
+<sup>+</sup> Corresponding author
+
+**Contact:** {22120189, 22120438, 22120025}@student.hcmus.edu.vn, nhbach22@apcs.fitus.edu.vn, ltnghia@fit.hcmus.edu.vn
+
 ## 🏆 Challenge Results
 
 - **Final Ranking**: 5th place in EVENTA Grand Challenge (Team: noname_)
@@ -196,4 +221,17 @@ top_k: 10
 similarity_threshold: 0.1
 ```
 
-*This repository contains the official implementation for our ACM MM 2025 paper "Hierarchical Multi-Modal Retrieval for Knowledge-Grounded News Image Captioning" submitted to the EVENTA Grand Challenge.*
+## Citation
+
+If you use this repository or find our work useful, please cite:
+
+```bibtex
+@inproceedings{Loi2025HierarchicalMRN,
+  title = {Hierarchical Multi-Modal Retrieval for News Image Captioning},
+  author = {Nguyen, Minh-Loi and Le, Xuan-Vu and Nguyen, Long-Bao and Ngo, Hoang-Bach and Le, Trung-Nghia},
+  booktitle = {International Symposium on Information and Communication Technology (SoICT)},
+  year = {2025},
+}
+```
+
+*This repository contains the official implementation for our paper "Hierarchical Multi-Modal Retrieval for Knowledge-Grounded News Image Captioning".*
